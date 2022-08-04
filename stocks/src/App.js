@@ -45,16 +45,15 @@ function App() {
     });
   };
 
-  const test = [
-    {
-      name: "Company One Inc.",
-      country: "US",
-      currency: "USD",
-      weburl: "www.testPage.com",
-    },
-  ];
+  // const test = [
+  //   {
+  //     name: "Company One Inc.",
+  //     country: "US",
+  //     currency: "USD",
+  //     weburl: "www.testPage.com",
+  //   },
+  // ];
 
-  console.log(data[0])
   return (
     <div className="app">
       {isStockFormOpen && (

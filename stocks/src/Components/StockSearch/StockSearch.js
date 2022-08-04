@@ -14,6 +14,7 @@ const StockSearch = (props) => {
   const [stockData, setStockData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showCandles, setShowCandles] = useState(true);
 
   const handleStockSearch = async (options) => {
     setIsLoading(true);
@@ -26,17 +27,22 @@ const StockSearch = (props) => {
     try {
       const response = await getResponse("stock", stockInformation);
       const data = await response.json();
-      console.log(data)
       if (data.s === "no_data") {
         setError("Data was not found!");
         return;
       }
-      setStockData(converStockData(data));
+      setStockData([converStockData(data)]);
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
     }
     setIsLoading(false);
+  };
+
+  const handleChartSwitch = () => {
+    setShowCandles((prevState) => {
+      return !prevState;
+    });
   };
 
   let content;
@@ -50,7 +56,14 @@ const StockSearch = (props) => {
   }
 
   if (stockData.length > 0) {
-    content = <StockChart data={stockData} symbol={props.symbol} />;
+    content = (
+      <StockChart
+        data={stockData}
+        symbol={props.symbol}
+        showCandles={showCandles}
+        onChartSwitch={handleChartSwitch}
+      />
+    );
   }
 
   return (

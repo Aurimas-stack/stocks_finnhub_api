@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { validateInput } from "../../../util/validate-input";
 
@@ -8,6 +8,7 @@ import Error from "../Error/Error";
 const Input = (props) => {
   const [symbol, setSymbol] = useState("");
   const [isTouched, setIsTouched] = useState(false);
+  const input = useRef(null);
 
   const validSymbol = validateInput(symbol);
   const hasError = !validSymbol.valid && isTouched;
@@ -32,6 +33,10 @@ const Input = (props) => {
     setIsTouched(false);
   };
 
+  const handleInputFocus = () => {
+    input.current.focus();
+  };
+
   const searchHandler = (event) => {
     event.preventDefault();
 
@@ -50,13 +55,14 @@ const Input = (props) => {
 
   return (
     <form onSubmit={searchHandler} className="form">
-      {hasError && <Error message={props.error} className="input-error"/>}
+      {hasError && <Error message={props.error} className="input-error" />}
       <input
         type="text"
         className={hasError ? "valid invalid" : "valid"}
         placeholder="Enter a symbol of the company, ex.: AAPL"
         value={symbol}
         maxLength={40}
+        ref={input}
         onFocus={() => setIsTouched(true)}
         onChange={(e) => setSymbol(e.target.value)}
         onBlur={() => setIsTouched(false)}
@@ -66,6 +72,7 @@ const Input = (props) => {
           isTouched && !hasError && "focused-counter-container"
         }
       ${hasError && "invalid-counter-container"}`}
+        onClick={handleInputFocus}
       >
         {isTouched && (
           <p
