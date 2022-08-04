@@ -1,0 +1,21 @@
+{
+  "name": "finnhub_stocks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node server/index.js",
+    "start": "node server/index.js",
+    "stocks": "npm start --prefix stocks",
+    "dev": "concurrently \"npm run server\" \"npm run stocks\"",
+    "build": "npm run build --prefix stocks"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.3.0",
+    "express": "^4.18.1"
+  }
+}
