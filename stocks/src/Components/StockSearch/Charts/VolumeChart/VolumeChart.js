@@ -1,15 +1,11 @@
 import Chart from "react-apexcharts";
 
 const VolumeChart = (props) => {
-    console.log(props.data)
-    const series = [
-        {
-            data: props.data.map(({_, volume}) => volume),
-        },
-    ];
-    
-    console.log(props.data.map(({dates, _}) => dates.toISOString().slice(0, 10)))
-
+  const series = [
+    {
+      data: props.data.map(({ _, volume }) => volume),
+    },
+  ];
   const options = {
     chart: {
       type: "area",
@@ -24,21 +20,17 @@ const VolumeChart = (props) => {
     stroke: {
       curve: "straight",
     },
-
     title: {
       text: `${props.symbol} Stocks`,
       align: "left",
     },
     subtitle: {
       text: "Volume",
-      align: "left",
+      align: "right",
     },
-    labels: props.data.map(({dates, _}) => dates.toISOString().slice(0, 10)),
+    labels: props.data.map(({ dates, _ }) => dates.toISOString()),
     xaxis: {
       type: "datetime",
-    },
-    yaxis: {
-      opposite: true,
     },
     legend: {
       horizontalAlign: "left",

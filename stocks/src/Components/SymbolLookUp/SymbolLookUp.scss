@@ -1,0 +1,85 @@
+.symbol-lookup {
+    margin-top: 20px;
+    width: 90%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    .lookup-items {
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        &::-webkit-scrollbar-button {
+            height: 0px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: $blue;
+            border-radius: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: rgb(185, 223, 248);
+            border-radius: 5px;
+        }
+    }
+
+    .lookup-count {
+        text-align: center;
+        font-size: 1.3rem;
+
+        span {
+            font-weight: 600;
+        }
+    }
+
+    .lookup-item-cont {
+        border-top: 2px solid rgb(214, 211, 211);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 20px;
+
+        .lookup-item-numb {
+            width: 2rem;
+            height: 3rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $white;
+            background-color: $blue;
+            font-weight: 600;
+        }
+
+        .lookup-item-desc {
+            margin: 10px 0;
+
+            p {
+                font-size: 1.2rem;
+                margin: 5px 0;
+            }
+
+            span {
+                margin-left: 10px;
+                font-weight: 600;
+            }
+
+            .lookup-btn {
+                background-color: rgb(28, 153, 236);
+                border-radius: 10px;
+                width: 20rem;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+}

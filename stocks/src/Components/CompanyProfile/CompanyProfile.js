@@ -1,19 +1,15 @@
-import { useState } from "react";
-
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 
 const CompanyProfile = (props) => {
-  if (props.data.length === 0)
-    return (
-      <Card className="nothing-found">
-        <h3>Nothing found!</h3>
-      </Card>
-    );
-
   return (
     <Card className="company-profile">
-      <Button onClick={props.onOpenStockSearch}>
+      <Button
+        onClick={() => {
+          props.onStockInfo(props.data[0].name, props.data[0].ticker);
+          props.onOpenStockSearch();
+        }}
+      >
         {props.data[0].name}
       </Button>
       <h3>Country: {props.data[0].country}</h3>

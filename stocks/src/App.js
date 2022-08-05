@@ -4,29 +4,42 @@ import { getResponse } from "./util/get-response";
 
 import Spinner from "./Components/UI/Spinner/Spinner";
 import Input from "./Components/UI/Input/Input";
+import Error from "./Components/UI/Error/Error";
 import CompanyProfile from "./Components/CompanyProfile/CompanyProfile";
 import StockSearch from "./Components/StockSearch/StockSearch";
+import SymbolLookUp from "./Components/SymbolLookUp/SymbolLookUp";
 
 import "./styles/styles.scss";
 
 function App() {
   const [data, setData] = useState([]);
+  const [stockInfo, setStockInfo] = useState({ name: "", symbol: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [didSearch, setDidSearch] = useState(false);
   const [isStockFormOpen, setIsStockFormOpen] = useState(false);
+  const [showCompanyProfile, setShowCompanyProfile] = useState(false);
+  const [showSymbolSearch, setShowSymbolSearch] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleAPI = async (symbol) => {
+  const handleSearch = async (searchFor, searchItem) => {
     setIsLoading(true);
+    if (searchFor === "profile") {
+      setShowCompanyProfile(true);
+    }
+    if (searchFor === "symbol") {
+      setShowSymbolSearch(true);
+    }
     setError(null);
     try {
-      const response = await getResponse("profile", symbol);
+      const response = await getResponse(searchFor, searchItem);
       if (!response.ok) {
-        throw new Error("Something went wrong!");
+        setError("Something went wrong!");
+        return;
       }
       const data = await response.json();
       if (typeof data === "object" && Object.keys(data).length === 0) {
-        setData([]);
+        setError("No data was found!");
+        setData([])
         setIsLoading(false);
         return;
       }
@@ -34,6 +47,7 @@ function App() {
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
+      setData([]);
     }
     setDidSearch(true);
     setIsLoading(false);
@@ -45,34 +59,53 @@ function App() {
     });
   };
 
-  // const test = [
-  //   {
-  //     name: "Company One Inc.",
-  //     country: "US",
-  //     currency: "USD",
-  //     weburl: "www.testPage.com",
-  //   },
-  // ];
+  const handleStockInfo = (name, symbol) => {
+    setStockInfo({
+      name: name,
+      symbol: symbol,
+    });
+  };
+
+  let content;
+
+  if (error) {
+    content = <Error message={error} className="search-error" />;
+  }
+
+  if (isLoading) {
+    content = <Spinner />;
+  }
+
+  if (!isLoading && didSearch && showCompanyProfile) {
+    content = (
+      <CompanyProfile
+        data={data}
+        onOpenStockSearch={handleOpenStockSearch}
+        onStockInfo={handleStockInfo}
+      />
+    );
+  }
+
+  if (!isLoading && didSearch && showSymbolSearch) {
+    content = (
+      <SymbolLookUp
+        data={data}
+        onOpenStockSearch={handleOpenStockSearch}
+        onStockInfo={handleStockInfo}
+      />
+    );
+  }
 
   return (
     <div className="app">
+      <Input onSearch={handleSearch} />
+      {content}
       {isStockFormOpen && (
         <StockSearch
           onClose={handleOpenStockSearch}
-          name={data[0].name}
-          symbol={data[0].ticker}
+          name={stockInfo.name}
+          symbol={stockInfo.symbol}
         />
-      )}
-      <Input onSymbolSearch={handleAPI} setError={setError} error={error} />
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        didSearch && (
-          <CompanyProfile
-            data={data}
-            onOpenStockSearch={handleOpenStockSearch}
-          />
-        )
       )}
     </div>
   );

@@ -1,68 +1,94 @@
 .form {
-    margin-top:50px;
-    display:flex;
+    margin-top: 50px;
+    display: flex;
     flex-direction: row;
-    align-items: center;  
+    align-items: center;
+
+    .search-by-opt {
+        padding: 14px;
+        border: 2px solid $blue;
+        border-right: none;
+        option {
+            text-align: center;
+        }
+    }
+
+    .invalid-search-by-opt {
+        border: 3px solid $red !important;
+        border-right: none !important;
+    }
+
     .input-error {
         position: absolute;
-        top:20px;
+        top: 20px;
     }
+
     .invalid {
         border: 3px solid $red !important;
         border-right: none !important;
+        border-left:none !important;
+
         &:focus {
             outline: none;
         }
     }
+
     .valid {
-        padding:10px;
+        padding: 10px;
         height: 25px;
-        width:350px;
-        z-index:2;
+        width: 350px;
+        z-index: 2;
         border: 2px solid $blue;
         border-right: none;
+        border-left:none;
         font-size: 1rem;
         letter-spacing: 0.5px;
         background-color: $white;
+
         &:focus {
             outline: none;
         }
-        &::placeholder {
+
+        ::placeholder {
             font-size: 0.9rem;
             font-style: italic;
-            color:$white;
+            color: $white;
         }
     }
+
     .letter-count-container {
-        width:60px;
+        width: 60px;
         z-index: 1;
         height: 25px;
         border: 2px solid $blue;
         border-left: none;
         background-color: $white;
-        padding:10px;
-        display:flex;
+        padding: 10px;
+        display: flex;
         align-items: center;
         justify-content: center;
+
         .letter-counter {
             font-size: 0.8rem;
-            color:#000;
+            color: #000;
             text-align: center;
             font-weight: 600;
-            
+
         }
+
         .invalid-counter {
-            color:$red;
+            color: $red;
         }
     }
+
     .invalid-counter-container {
         border: 3px solid $red !important;
         border-left: none !important;
     }
+
     button:disabled {
         background-color: rgb(56, 99, 240);
         opacity: 0.5;
-        cursor:default;
+        cursor: default;
     }
 }
-

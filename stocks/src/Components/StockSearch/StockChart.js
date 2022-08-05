@@ -3,7 +3,6 @@ import Button from "../UI/Button/Button";
 import VolumeChart from "./Charts/VolumeChart/VolumeChart";
 
 const StockChart = (props) => {
-  console.log(props.data)
   const series = [
     {
       data: props.data[0].candle,
@@ -30,20 +29,22 @@ const StockChart = (props) => {
       },
     },
   };
+
+  let content;
+  if (props.showCandles) {
+    content = (
+      <Chart options={options} series={series} type="candlestick" width="95%" />
+    );
+  }
+  if (!props.showCandles) {
+    content = <VolumeChart symbol={props.symbol} data={props.data[0].volume} />;
+  }
   return (
     <div className="container">
       <Button className="char-btn" onClick={props.onChartSwitch}>
         {props.showCandles ? "Show Volume" : "Show Candles"}
       </Button>
-      {!props.showCandles && <VolumeChart symbol={props.symbol} data={props.data[0].volume} />}
-      {props.showCandles && (
-        <Chart
-          options={options}
-          series={series}
-          type="candlestick"
-          width="95%"
-        />
-      )}
+      {content}
     </div>
   );
 };

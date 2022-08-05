@@ -26,6 +26,10 @@ const StockSearch = (props) => {
     };
     try {
       const response = await getResponse("stock", stockInformation);
+      if(!response.ok) {
+        setError("Data was not found!");
+        return;
+      };
       const data = await response.json();
       if (data.s === "no_data") {
         setError("Data was not found!");

@@ -9,6 +9,9 @@ export const getResponse = (searchType, info) => {
   if (searchType === "stock") {
     url = `${mainUrl}candle?symbol=${info.symbol}&resolution=${info.resolution}&from=${info.from}&to=${info.to}&token=${apiKey}`;
   }
+  if (searchType === "symbol") {
+    url = `${mainUrl.slice(0, 26)}search?q=${info}&token=${apiKey}`;
+  }
   const response = fetch(url);
   return response;
 };
