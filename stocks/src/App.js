@@ -3,8 +3,8 @@ import { useState } from "react";
 import { getResponse } from "./util/get-response";
 
 import Spinner from "./Components/UI/Spinner/Spinner";
-import Input from "./Components/UI/Input/Input";
 import Error from "./Components/UI/Error/Error";
+import Input from "./Components/Input/Input";
 import CompanyProfile from "./Components/CompanyProfile/CompanyProfile";
 import StockSearch from "./Components/StockSearch/StockSearch";
 import SymbolLookUp from "./Components/SymbolLookUp/SymbolLookUp";
