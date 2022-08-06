@@ -1,23 +1,28 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+import {
+  defaultStockSearchState,
+  stockSearchReducer,
+} from "./StockSearchReducer/state";
 
 import Modal from "../UI/Modal/Modal";
 import CloseIcon from "../UI/Icons/CloseIcon";
 import StockSearchForm from "./StockSearchForm/StockSearchForm";
 import Spinner from "../UI/Spinner/Spinner";
-import Error from "../UI/Error/Error";
+import ErrorMsg from "../UI/Error/ErrorMsg";
 import StockChart from "./StockChart";
 
 import { converStockData } from "../../util/convert-stock-data";
 import { getResponse } from "../../util/get-response";
 
 const StockSearch = (props) => {
-  const [stockData, setStockData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [showCandles, setShowCandles] = useState(true);
+  const [state, dispatch] = useReducer(
+    stockSearchReducer,
+    defaultStockSearchState
+  );
 
   const handleStockSearch = async (options) => {
-    setIsLoading(true);
+    dispatch({ type: "load", value: true });
     const stockInformation = {
       symbol: props.symbol,
       resolution: options.resolution,
@@ -26,45 +31,44 @@ const StockSearch = (props) => {
     };
     try {
       const response = await getResponse("stock", stockInformation);
-      if(!response.ok) {
-        setError("Data was not found!");
-        return;
-      };
+      if (!response.ok) {
+        const status =
+          response.status === 403
+            ? `You don't have access to this resource (${response.status})`
+            : `${response.status} Error`;
+        throw new Error(status);
+      }
       const data = await response.json();
       if (data.s === "no_data") {
-        setError("Data was not found!");
-        return;
+        throw new Error("Data was not found!");
       }
-      setStockData([converStockData(data)]);
+      dispatch({ type: "set_stocks", value: converStockData(data) });
     } catch (error) {
-      setError(error.message);
-      setIsLoading(false);
+      dispatch({ type: "handle_error", value: error.message });
     }
-    setIsLoading(false);
+    dispatch({ type: "load", value: false });
   };
 
   const handleChartSwitch = () => {
-    setShowCandles((prevState) => {
-      return !prevState;
-    });
+    dispatch({ type: "show_candles", value: !state.showCandles });
   };
 
   let content;
 
-  if (isLoading) {
+  if (state.isLoading) {
     content = <Spinner className="stock-loader" />;
   }
 
-  if (error) {
-    content = <Error message={error} className="error-msg" />;
+  if (state.error) {
+    content = <ErrorMsg message={state.error} className="error-msg" />;
   }
 
-  if (stockData.length > 0) {
+  if (state.stockData.length > 0) {
     content = (
       <StockChart
-        data={stockData}
+        data={state.stockData}
         symbol={props.symbol}
-        showCandles={showCandles}
+        showCandles={state.showCandles}
         onChartSwitch={handleChartSwitch}
       />
     );

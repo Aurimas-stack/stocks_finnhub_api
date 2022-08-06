@@ -14,5 +14,5 @@ export const converStockData = (data) => {
       volume:data.v[i]
   })
   }
-  return stockInfo;
+  return [stockInfo];
 };

@@ -4,7 +4,7 @@ import { defaultAppState, appReducer } from "./AppReducer/state";
 import { getResponse } from "../../util/get-response";
 
 import Spinner from "../UI/Spinner/Spinner";
-import Error from "../UI/Error/Error";
+import ErrorMsg from "../UI/Error/ErrorMsg";
 import Input from "../Input/Input";
 import CompanyProfile from "../CompanyProfile/CompanyProfile";
 import StockSearch from "../StockSearch/StockSearch";
@@ -16,8 +16,8 @@ function App() {
   const [state, dispatch] = useReducer(appReducer, defaultAppState);
 
   const handleSearch = async (searchFor, searchItem) => {
-    dispatch({ type: "load", value: true });
-    dispatch({ type: "error", value: null });
+    dispatch({ type: "start_search" });
+
     if (searchFor === "profile") {
       dispatch({ type: "show_company_profile", value: true });
     }
@@ -28,21 +28,17 @@ function App() {
     try {
       const response = await getResponse(searchFor, searchItem);
       if (!response.ok) {
-        dispatch({ type: "error", value: "Something went wrong!" });
-        return;
+        throw new Error(`${response.status} Error`);
       }
       const data = await response.json();
       if (typeof data === "object" && Object.keys(data).length === 0) {
-        dispatch({ type: "error", value: "No data was found!" });
-        dispatch({ type: "load", value: false });
-        return;
+        throw new Error("No data was found!");
       }
       dispatch({ type: "set_data", value: [data] });
     } catch (error) {
-      dispatch({ type: "error", value: error.message });
-      dispatch({ type: "load", value: false });
-      dispatch({ type: "set_data", value: [] });
+      dispatch({ type: "handle_error", value: error.message });
     }
+
     dispatch({ type: "did_search", value: true });
     dispatch({ type: "load", value: false });
   };
@@ -64,7 +60,7 @@ function App() {
   let content;
 
   if (state.error) {
-    content = <Error message={state.error} className="search-error" />;
+    content = <ErrorMsg message={state.error} className="search-error" />;
   }
 
   if (state.isLoading) {

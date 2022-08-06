@@ -6,7 +6,7 @@ import { validateInput } from "../../util/validate-input";
 import InputSelect from "./InputSelect/InputSelect";
 import InputCounter from "./InputCounter/InputCounter";
 import Button from "../UI/Button/Button";
-import Error from "../UI/Error/Error";
+import Error from "../UI/Error/ErrorMsg";
 
 const Input = (props) => {
   const [state, dispatch] = useReducer(inputReducer, defaultInputState);

@@ -19,14 +19,17 @@ export const appReducer = (state, action) => {
       return { ...state, isLoading: action.value };
     case "did_search":
       return { ...state, didSearch: action.value };
+    case "start_search": 
+      return { ...defaultAppState, isLoading: true };
     case "show_stock_form":
       return { ...state, isStockFormOpen: action.value };
     case "show_company_profile":
         return { ...state, showCompanyProfile: action.value };
     case "show_symbol_search":
       return { ...state, showSymbolSearch: action.value };
-    case "error":
-      return { ...state, error: action.value };
+    case "handle_error": {
+      return { ...defaultAppState, error: action.value};
+    }
     default:
       return defaultAppState;
   }
