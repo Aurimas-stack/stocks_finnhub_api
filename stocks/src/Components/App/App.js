@@ -58,6 +58,7 @@ function App() {
   };
 
   let content;
+  const searched = !state.isLoading && state.didSearch;
 
   if (state.error) {
     content = <ErrorMsg message={state.error} className="search-error" />;
@@ -67,7 +68,7 @@ function App() {
     content = <Spinner />;
   }
 
-  if (!state.isLoading && state.didSearch && state.showCompanyProfile) {
+  if (searched && state.showCompanyProfile) {
     content = (
       <CompanyProfile
         data={state.data}
@@ -77,7 +78,7 @@ function App() {
     );
   }
 
-  if (!state.isLoading && state.didSearch && state.showSymbolSearch) {
+  if (searched && state.showSymbolSearch) {
     content = (
       <SymbolLookUp
         data={state.data}

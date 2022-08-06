@@ -5,6 +5,10 @@ import {
   stockSearchReducer,
 } from "./StockSearchReducer/state";
 
+import { converStockData } from "../../util/convert-stock-data";
+import { getResponse } from "../../util/get-response";
+import { sendData } from "../../util/send-data";
+
 import Modal from "../UI/Modal/Modal";
 import CloseIcon from "../UI/Icons/CloseIcon";
 import StockSearchForm from "./StockSearchForm/StockSearchForm";
@@ -12,8 +16,6 @@ import Spinner from "../UI/Spinner/Spinner";
 import ErrorMsg from "../UI/Error/ErrorMsg";
 import StockChart from "./StockChart";
 
-import { converStockData } from "../../util/convert-stock-data";
-import { getResponse } from "../../util/get-response";
 
 const StockSearch = (props) => {
   const [state, dispatch] = useReducer(
@@ -29,6 +31,7 @@ const StockSearch = (props) => {
       from: options.from,
       to: options.to,
     };
+
     try {
       const response = await getResponse("stock", stockInformation);
       if (!response.ok) {
@@ -42,7 +45,12 @@ const StockSearch = (props) => {
       if (data.s === "no_data") {
         throw new Error("Data was not found!");
       }
-      dispatch({ type: "set_stocks", value: converStockData(data) });
+      const convertedData = converStockData(data);
+      dispatch({ type: "set_stocks", value: convertedData });
+      sendData({
+        name: props.name,
+        price: convertedData[0].candle
+      });
     } catch (error) {
       dispatch({ type: "handle_error", value: error.message });
     }
