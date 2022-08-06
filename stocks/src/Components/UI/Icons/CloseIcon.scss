@@ -1,8 +1,16 @@
 .close-icon {
     position: absolute;
-    right:20px;
-    top:20px;
+    right: 20px;
+    top: 20px;
+
     &:hover {
         cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .close-icon {
+        top: 5px;
+        right: 10px;
     }
 }

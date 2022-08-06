@@ -21,10 +21,52 @@
     animation: slide-down 300ms ease-out forwards;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 1375px) {
     .modal {
-        width: 80rem;
-        left: calc(50% - 40rem);
+        width: 60rem !important;
+        left: calc(50% - 30rem) !important;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    .modal {
+        width: 40rem !important;
+        left: calc(50% - 20rem) !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .modal {
+        width: 30rem !important;
+        left: calc(50% - 15rem) !important;
+    }
+}
+
+@media screen and (max-width: 580px) {
+    .modal {
+        width: 85% !important;
+        left: calc(50% - 15rem) !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .modal {
+        width: 85% !important;
+        left: calc(25% - 6rem) !important;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .modal {
+        width: 80% !important;
+        left: calc(25% - 5rem) !important;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .modal {
+        width: 80% !important;
+        left: calc(25% - 4rem) !important;
     }
 }
 

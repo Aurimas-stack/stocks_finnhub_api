@@ -60,6 +60,9 @@
 
         .lookup-item-desc {
             margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
 
             p {
                 font-size: 1.2rem;
@@ -81,5 +84,36 @@
                 }
             }
         }
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .lookup-item-desc {
+        margin: 0 !important;
+
+        p {
+            font-size: 1rem !important;
+
+        }
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .lookup-item-desc {
+        p {
+            text-align: center;
+            font-size: 0.8rem !important;
+
+        }
+
+        .lookup-btn {
+            width: 10rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .symbol-lookup {
+        width: 85%;
     }
 }

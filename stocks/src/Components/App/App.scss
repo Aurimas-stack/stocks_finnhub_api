@@ -2,21 +2,27 @@
   margin: 0 auto;
   width: 100%;
   min-height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
+
   .search-error {
-    padding:10px;
+    padding: 10px;
     background-color: $white;
-    width:20rem;
+    width: 20rem;
     height: 10rem;
     margin-top: 1rem;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.8rem;
-    border:3px solid $red;
+    border: 3px solid $red;
     border-radius: 5px;
   }
 }
 
+@media screen and (max-width: 360px) {
+  .search-error {
+    width: 15rem !important;
+  }
+}

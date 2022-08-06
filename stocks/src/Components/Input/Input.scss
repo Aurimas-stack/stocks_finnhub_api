@@ -4,91 +4,140 @@
     flex-direction: row;
     align-items: center;
 
-    .search-by-opt {
-        padding: 14px;
-        border: 2px solid $blue;
-        border-right: none;
-        option {
-            text-align: center;
-        }
-    }
-
-    .invalid-search-by-opt {
-        border: 3px solid $red !important;
-        border-right: none !important;
-    }
-
-    .input-error {
-        position: absolute;
-        top: 20px;
-    }
-
-    .invalid {
-        border: 3px solid $red !important;
-        border-right: none !important;
-        border-left:none !important;
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    .valid {
-        padding: 10px;
-        height: 25px;
-        width: 350px;
-        z-index: 2;
-        border: 2px solid $blue;
-        border-right: none;
-        border-left:none;
-        font-size: 1rem;
-        letter-spacing: 0.5px;
-        background-color: $white;
-
-        &:focus {
-            outline: none;
-        }
-
-        ::placeholder {
-            font-size: 0.9rem;
-            font-style: italic;
-            color: $white;
-        }
-    }
-
-    .letter-count-container {
-        width: 60px;
-        z-index: 1;
-        height: 25px;
-        border: 2px solid $blue;
-        border-left: none;
-        background-color: $white;
-        padding: 10px;
+    .input-container {
         display: flex;
+        flex-direction: row;
         align-items: center;
-        justify-content: center;
 
-        .letter-counter {
-            font-size: 0.8rem;
-            color: #000;
-            text-align: center;
-            font-weight: 600;
+        .search-by-opt {
+            padding: 14px;
+            border: 2px solid $blue;
+            border-right: none;
 
+            option {
+                text-align: center;
+            }
         }
 
-        .invalid-counter {
-            color: $red;
+        .invalid-search-by-opt {
+            border: 3px solid $red !important;
+            border-right: none !important;
+        }
+
+        .input-error {
+            position: absolute;
+            top: 20px;
+        }
+
+        .invalid {
+            border: 3px solid $red !important;
+            border-right: none !important;
+            border-left: none !important;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .valid {
+            padding: 10px;
+            height: 25px;
+            width: 350px;
+            z-index: 2;
+            border: 2px solid $blue;
+            border-right: none;
+            border-left: none;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            background-color: $white;
+
+            &:focus {
+                outline: none;
+            }
+
+            ::placeholder {
+                font-size: 0.9rem;
+                font-style: italic;
+                color: $white;
+            }
+        }
+
+        .letter-count-container {
+            width: 60px;
+            z-index: 1;
+            height: 25px;
+            border: 2px solid $blue;
+            border-left: none;
+            background-color: $white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .letter-counter {
+                font-size: 0.8rem;
+                color: #000;
+                text-align: center;
+                font-weight: 600;
+
+            }
+
+            .invalid-counter {
+                color: $red;
+            }
+        }
+
+        .invalid-counter-container {
+            border: 3px solid $red !important;
+            border-left: none !important;
         }
     }
 
-    .invalid-counter-container {
-        border: 3px solid $red !important;
-        border-left: none !important;
-    }
 
     button:disabled {
         background-color: rgb(56, 99, 240);
         opacity: 0.5;
         cursor: default;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .search-by-opt {
+        padding: 14px 5px 14px 5px !important;
+    }
+
+    .letter-count-container {
+        width: 90px !important;
+    }
+
+    .valid {
+        width: 95% !important;
+
+        &::placeholder {
+            font-size: 12px;
+        }
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .form {
+        flex-direction: column;
+        align-items: center;
+
+        .letter-counter {
+            font-size: 0.6rem !important;
+
+        }
+
+        button {
+            margin-top: 5px;
+            width: 65%;
+        }
+    }
+}
+
+@media screen and (max-width: 335px) {
+    .input-error {
+        font-size: 0.8rem;
     }
 }

@@ -56,25 +56,27 @@ const Input = (props) => {
 
   return (
     <form onSubmit={searchHandler} className="form">
+      <div className="input-container">
       {hasError && <Error message={state.error} className="input-error" />}
-      <InputSelect hasError={hasError} dispatch={dispatch} />
-      <input
-        type="text"
-        className={hasError ? "valid invalid" : "valid"}
-        placeholder={placeHolderText}
-        value={state.string}
-        maxLength={40}
-        ref={input}
-        onFocus={() => dispatch({ type: "input_is_touched", value: true })}
-        onChange={(e) => dispatch({ type: "search", value: e.target.value })}
-        onBlur={() => dispatch({ type: "input_is_touched", value: false })}
-      />
-      <InputCounter
-        isTouched={state.isTouched}
-        onInputFocus={handleInputFocus}
-        length={state.string.length}
-        hasError={hasError}
-      />
+        <InputSelect hasError={hasError} dispatch={dispatch} />
+        <input
+          type="text"
+          className={hasError ? "valid invalid" : "valid"}
+          placeholder={placeHolderText}
+          value={state.string}
+          maxLength={40}
+          ref={input}
+          onFocus={() => dispatch({ type: "input_is_touched", value: true })}
+          onChange={(e) => dispatch({ type: "search", value: e.target.value })}
+          onBlur={() => dispatch({ type: "input_is_touched", value: false })}
+        />
+        <InputCounter
+          isTouched={state.isTouched}
+          onInputFocus={handleInputFocus}
+          length={state.string.length}
+          hasError={hasError}
+        />
+      </div>
       <Button type="submit" disabled={!formIsValid}>
         Search
       </Button>
