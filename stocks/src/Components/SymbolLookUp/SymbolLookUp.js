@@ -1,5 +1,5 @@
+import Button from "react-bootstrap/Button";
 import Card from "../UI/Card/Card";
-import Button from "../UI/Button/Button";
 
 const SymbolLookUp = (props) => {
   const count = props.data[0].count;
@@ -22,6 +22,7 @@ const SymbolLookUp = (props) => {
                   <p>
                     <span>Symbol: </span>
                     <Button
+                      variant="primary"
                       className="lookup-btn"
                       onClick={() => {
                         props.onStockInfo(item.description, item.symbol);
