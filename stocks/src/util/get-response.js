@@ -1,4 +1,4 @@
-const apiKey = "cbjp5eqad3iarlnd6g00";
+const apiKey = "";
 const mainUrl = "https://finnhub.io/api/v1/stock/";
 
 export const getResponse = async (searchType, info) => {
