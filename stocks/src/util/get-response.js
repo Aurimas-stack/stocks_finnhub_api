@@ -1,7 +1,7 @@
 const apiKey = "cbjp5eqad3iarlnd6g00";
 const mainUrl = "https://finnhub.io/api/v1/stock/";
 
-export const getResponse = (searchType, info) => {
+export const getResponse = async (searchType, info) => {
   let url;
   if (searchType === "profile") {
     url = `${mainUrl}profile2?symbol=${info}&token=${apiKey}`;
@@ -12,6 +12,6 @@ export const getResponse = (searchType, info) => {
   if (searchType === "symbol") {
     url = `${mainUrl.slice(0, 26)}search?q=${info}&token=${apiKey}`;
   }
-  const response = fetch(url);
+  const response = await fetch(url);
   return response;
 };
